@@ -1,539 +1,305 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Name · portfolio</title>
-    <style>
-        /* ─────────── reset & base ─────────── */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Theo · builds things</title>
 
-        /* light mode (default) */
-        :root {
-            --bg: #fcfcfc;
-            --bg-card: #f2f5fa;
-            --bg-code: #eef2f7;
-            --text-primary: #1a1a2c;
-            --text-secondary: #2d3748;
-            --text-muted: #5a6a7e;
-            --border-light: #e2e8f0;
-            --border-hover: #bcc8d8;
-            --link-color: #0066cc;
-            --link-hover: #1a1a2c;
-            --shadow-sm: 0 1px 3px rgba(0,0,0,0.04);
-            --nav-hover: #e6eaf0;
-            --interactive-bg: #eef2f7;
-            --interactive-border: #d0d8e4;
-        }
+  <!-- Inter font (clean, modern) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
-        /* dark mode */
-        body.dark {
-            --bg: #121212;
-            --bg-card: #1e1e1e;
-            --bg-code: #2a2a2a;
-            --text-primary: #e8edf2;
-            --text-secondary: #d3dce8;
-            --text-muted: #9aaec9;
-            --border-light: #2a2a2a;
-            --border-hover: #4a5a6e;
-            --link-color: #7bb3ff;
-            --link-hover: #9bc0ff;
-            --shadow-sm: 0 1px 4px rgba(0,0,0,0.5);
-            --nav-hover: #2a2a2a;
-            --interactive-bg: #2a2a2a;
-            --interactive-border: #3d4d66;
-        }
+  <style>
+    /* ----- global reset & variables ----- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        body {
-            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background: var(--bg);
-            color: var(--text-primary);
-            line-height: 1.6;
-            padding: 2rem 1.2rem;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            transition: background 0.3s ease, color 0.3s ease;
-        }
+    :root {
+      --bg: #0a0a0a;          /* pure dark (near-black) */
+      --card: #111;
+      --text: #f5f5f5;
+      --muted: #707070;
+      --line: #1a1a1a;
+      --accent: #36d6ff;
+    }
 
-        .container {
-            max-width: 720px;
-            margin: 0 auto;
-            width: 100%;
-        }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
 
-        /* ─────────── header: minimal, text-based ─────────── */
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.4rem 0 0.8rem;
-            border-bottom: 1px solid var(--border-light);
-            margin-bottom: 1.8rem;
-            transition: border-color 0.3s ease;
-        }
+    /* subtle orbs – kept for depth, but on pure dark bg */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(circle at 50% 15%, rgba(255, 255, 255, .03), transparent 35%),
+        radial-gradient(circle at bottom, rgba(54, 214, 255, .02), transparent 40%);
+      pointer-events: none;
+      z-index: 0;
+    }
 
-        .nav-links {
-            display: flex;
-            gap: 1.5rem;
-        }
+    .container {
+      width: min(430px, 90vw);
+      position: relative;
+      z-index: 1;
+    }
 
-        .nav-links a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 0.95rem;
-            font-weight: 400;
-            padding: 0.2rem 0;
-            transition: 0.2s;
-            border-bottom: 1px solid transparent;
-            letter-spacing: 0.01em;
-            cursor: pointer;
-        }
+    /* ----- logo / name ----- */
+    .logo {
+      margin-bottom: 70px;
+    }
 
-        .nav-links a:hover {
-            color: var(--text-primary);
-            border-bottom-color: var(--text-primary);
-        }
+    .logo h1 {
+      font-size: 23px;
+      font-weight: 600;
+      letter-spacing: -0.04em;
+    }
 
-        .nav-links a.active {
-            color: var(--text-primary);
-            border-bottom-color: var(--link-color);
-            font-weight: 500;
-        }
+    .logo p {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 14px;
+    }
 
-        /* minimal toggle – text only */
-        .theme-toggle {
-            background: none;
-            border: none;
-            font-size: 0.95rem;
-            font-weight: 400;
-            color: var(--text-muted);
-            cursor: pointer;
-            padding: 0.2rem 0;
-            transition: 0.2s;
-            border-bottom: 1px solid transparent;
-            font-family: inherit;
-            letter-spacing: 0.01em;
-        }
+    /* ----- navigation ----- */
+    nav {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
 
-        .theme-toggle:hover {
-            color: var(--text-primary);
-            border-bottom-color: var(--text-primary);
-        }
+    nav a {
+      color: #9d9d9d;
+      text-decoration: none;
+      font-size: 20px;
+      font-weight: 600;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 0;
+      position: relative;
+      transition: color 0.35s, transform 0.35s cubic-bezier(.22, 1, .36, 1);
+    }
 
-        /* ─────────── typography ─────────── */
-        .greeting {
-            font-size: 1.6rem;
-            font-weight: 400;
-            margin-bottom: 0.2rem;
-            color: var(--text-secondary);
-            transition: color 0.3s ease;
-        }
+    /* thinner, lighter underline – only visible on hover */
+    nav a::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 1px;           /* thinner: 1px */
+      background: var(--accent);
+      opacity: 0.5;          /* lighter: semi-transparent */
+      transition: width 0.4s cubic-bezier(.22, 1, .36, 1);
+    }
 
-        .name-large {
-            font-size: 3rem;
-            font-weight: 600;
-            line-height: 1.1;
-            margin: 0.2rem 0 0.4rem;
-            letter-spacing: -0.02em;
-            color: var(--text-primary);
-            transition: color 0.3s ease;
-        }
+    /* hover: underline appears from left */
+    nav a:hover::after {
+      width: 100%;
+    }
 
-        .tagline {
-            font-size: 1.1rem;
-            color: var(--text-muted);
-            margin-bottom: 1.6rem;
-            font-weight: 350;
-            transition: color 0.3s ease;
-        }
+    /* active state: underline only visible when hovered or active */
+    nav a.active::after {
+      width: 100%;
+      opacity: 0.5;
+    }
 
-        .bio {
-            font-size: 1.05rem;
-            max-width: 650px;
-            color: var(--text-secondary);
-            margin-bottom: 2rem;
-            transition: color 0.3s ease;
-        }
+    nav a:hover {
+      color: white;
+      transform: translateX(6px);
+    }
 
-        .bio p + p {
-            margin-top: 0.8rem;
-        }
+    nav a.active {
+      color: white;
+    }
 
-        .highlight {
-            background: var(--bg-code);
-            padding: 0.1rem 0.4rem;
-            border-radius: 4px;
-            font-weight: 450;
-            color: var(--text-primary);
-            transition: background 0.3s ease, color 0.3s ease;
-        }
+    .arrow {
+      color: #555;
+      transition: transform 0.3s, color 0.3s;
+    }
 
-        /* ─────────── interactive link row ─────────── */
-        .link-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.8rem 1.8rem;
-            margin: 1.8rem 0 2.2rem;
-            padding: 0.8rem 0;
-            border-top: 1px solid var(--border-light);
-            border-bottom: 1px solid var(--border-light);
-            transition: border-color 0.3s ease;
-        }
+    nav a:hover .arrow {
+      transform: translateX(6px);
+      color: white;
+    }
 
-        .link-row a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-weight: 400;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.4rem;
-            transition: 0.2s;
-            border-bottom: 1px solid transparent;
-            font-size: 0.95rem;
-            cursor: pointer;
-            padding: 0.1rem 0;
-        }
+    /* ----- divider ----- */
+    .divider {
+      margin: 55px 0 28px;
+      height: 1px;
+      background: var(--line);
+    }
 
-        .link-row a:hover {
-            color: var(--text-primary);
-            border-bottom-color: var(--text-primary);
-        }
+    /* ----- social row ----- */
+    .social {
+      display: flex;
+      gap: 28px;
+      flex-wrap: wrap;
+    }
 
-        .link-row a.clicked {
-            color: var(--link-color);
-            border-bottom-color: var(--link-color);
-        }
+    .social a {
+      text-decoration: none;
+      color: #6c6c6c;
+      font-size: 14px;
+      transition: color 0.3s, transform 0.25s ease;
+      position: relative;
+    }
 
-        .link-row .icon-symbol {
-            font-size: 1rem;
-            opacity: 0.7;
-            transition: opacity 0.2s;
-        }
+    .social a:hover {
+      color: white;
+    }
 
-        .link-row a:hover .icon-symbol {
-            opacity: 1;
-        }
+    /* thinner, lighter underline on social hover */
+    .social a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -6px;
+      width: 0;
+      height: 1px;
+      background: white;
+      opacity: 0.5;
+      transition: width 0.3s ease;
+    }
 
-        .link-row .muted-link {
-            color: var(--text-muted);
-        }
-        .link-row .muted-link:hover {
-            color: var(--text-primary);
-            border-bottom-color: var(--text-muted);
-        }
+    .social a:hover::after {
+      width: 100%;
+    }
 
-        /* ─────────── interactive passions grid ─────────── */
-        .passions {
-            margin: 2.2rem 0 2rem;
-        }
+    /* ----- responsive tweaks ----- */
+    @media (max-width: 600px) {
+      .logo {
+        margin-bottom: 55px;
+      }
 
-        .passions h2 {
-            font-size: 1.1rem;
-            font-weight: 450;
-            margin-bottom: 1rem;
-            color: var(--text-secondary);
-            letter-spacing: -0.01em;
-            transition: color 0.3s ease;
-        }
+      nav a {
+        font-size: 18px;
+      }
 
-        .passion-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 0.6rem;
-        }
-
-        .passion-item {
-            background: var(--bg-card);
-            padding: 0.5rem 1rem;
-            border-radius: 40px;
-            font-size: 0.85rem;
-            text-align: center;
-            color: var(--text-secondary);
-            border: 1px solid var(--border-light);
-            transition: 0.2s;
-            font-weight: 400;
-            cursor: pointer;
-            user-select: none;
-        }
-
-        .passion-item:hover {
-            background: var(--bg-code);
-            border-color: var(--border-hover);
-            transform: translateY(-1px);
-        }
-
-        .passion-item.selected {
-            background: var(--interactive-bg);
-            border-color: var(--link-color);
-            color: var(--text-primary);
-            box-shadow: 0 0 0 1px var(--link-color);
-            transform: scale(0.97);
-        }
-
-        /* ─────────── interactive fun note ─────────── */
-        .fun-note {
-            margin: 2rem 0 1.5rem;
-            padding: 1.2rem 1.5rem;
-            background: var(--bg-card);
-            border-radius: 20px;
-            border: 1px solid var(--border-light);
-            font-size: 0.98rem;
-            color: var(--text-secondary);
-            transition: 0.3s ease;
-            cursor: pointer;
-            user-select: none;
-        }
-
-        .fun-note:hover {
-            border-color: var(--border-hover);
-        }
-
-        .fun-note.expanded {
-            background: var(--interactive-bg);
-            border-color: var(--link-color);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-        }
-
-        .fun-note strong {
-            font-weight: 500;
-            color: var(--text-primary);
-            transition: color 0.3s ease;
-        }
-
-        .fun-note .extra-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s ease, margin 0.3s ease;
-            margin-top: 0;
-        }
-
-        .fun-note.expanded .extra-content {
-            max-height: 200px;
-            margin-top: 0.8rem;
-        }
-
-        .fun-note .extra-content p {
-            opacity: 0;
-            transition: opacity 0.3s ease 0.1s;
-        }
-
-        .fun-note.expanded .extra-content p {
-            opacity: 1;
-        }
-
-        /* ─────────── contact & footer ─────────── */
-        .contact {
-            margin: 2.2rem 0 1.2rem;
-            transition: color 0.3s ease;
-        }
-
-        .contact a {
-            color: var(--link-color);
-            text-decoration: none;
-            font-weight: 450;
-            border-bottom: 1px solid transparent;
-            transition: 0.2s;
-            cursor: pointer;
-        }
-
-        .contact a:hover {
-            border-bottom-color: var(--link-color);
-        }
-
-        .contact a.clicked {
-            color: var(--text-primary);
-            border-bottom-color: var(--text-primary);
-        }
-
-        .footer-note {
-            margin-top: 2.5rem;
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            transition: color 0.3s ease;
-        }
-
-        .footer-note a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            transition: 0.2s;
-        }
-        .footer-note a:hover {
-            text-decoration: underline;
-        }
-
-        /* ─────────── responsive ─────────── */
-        @media (max-width: 550px) {
-            .header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 0.4rem;
-            }
-            .nav-links {
-                gap: 1rem;
-                flex-wrap: wrap;
-            }
-            .name-large {
-                font-size: 2.4rem;
-            }
-            .greeting {
-                font-size: 1.3rem;
-            }
-            .link-row {
-                gap: 0.6rem 1.2rem;
-            }
-            .passion-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-    </style>
+      .social {
+        gap: 18px;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
+  <div class="container">
 
-        <!-- ─── header with REAL navigation links ─── -->
-        <header class="header">
-            <nav class="nav-links">
-                <a href="https://yourblog.com" target="_blank" data-section="blog">Blog</a>
-                <a href="https://yourprojects.com" target="_blank" data-section="projects">Projects</a>
-                <a href="https://yourtalks.com" target="_blank" data-section="talks">Talks</a>
-                <a href="https://yoursponsors.com" target="_blank" data-section="sponsors">Sponsors</a>
-            </nav>
-            <button class="theme-toggle" id="themeToggle">Dark</button>
-        </header>
-
-        <!-- ─── content ─── -->
-        <div class="greeting">Hey! I’m</div>
-        <div class="name-large">Your Name</div>
-        <div class="tagline">a developer &amp; creative problem-solver</div>
-
-        <div class="bio">
-            <p>I'm a passionate developer who loves <span class="highlight">dreaming up cool ideas</span> and making them come true. Building tools that help myself and others be more productive — and enjoy the process — is what drives me.</p>
-            <p>I'm currently exploring full-stack development, open source, and design engineering. I enjoy sharing what I learn through <span class="highlight">blog posts</span> and occasional live coding.</p>
-        </div>
-
-        <!-- ─── interactive link row (real links) ─── -->
-        <div class="link-row">
-            <a href="https://github.com/yourusername" target="_blank" data-link="github"><span class="icon-symbol">⌨</span> GitHub</a>
-            <a href="https://twitter.com/yourusername" target="_blank" data-link="twitter"><span class="icon-symbol">🐦</span> Twitter</a>
-            <a href="https://youtube.com/yourusername" target="_blank" data-link="youtube"><span class="icon-symbol">▶</span> YouTube</a>
-            <a href="https://bilibili.com/yourusername" target="_blank" data-link="bilibili"><span class="icon-symbol">📺</span> Bilibili</a>
-            <a href="https://photos.yourdomain.com" target="_blank" class="muted-link" data-link="photos"><span class="icon-symbol">◷</span> Photos</a>
-            <a href="https://uses.yourdomain.com" target="_blank" class="muted-link" data-link="uses"><span class="icon-symbol">⚙</span> Uses</a>
-        </div>
-
-        <!-- ─── interactive passions (visual only) ─── -->
-        <section class="passions">
-            <h2>✦ things I enjoy</h2>
-            <div class="passion-grid">
-                <span class="passion-item" data-passion="opensource">Open Source</span>
-                <span class="passion-item" data-passion="uiux">UI/UX Design</span>
-                <span class="passion-item" data-passion="generative">Generative Art</span>
-                <span class="passion-item" data-passion="photography">Photography</span>
-                <span class="passion-item" data-passion="traveling">Traveling</span>
-                <span class="passion-item" data-passion="podcasting">Podcasting</span>
-            </div>
-        </section>
-
-        <!-- ─── interactive fun note ─── -->
-        <div class="fun-note" id="funNote">
-            <strong>◷ outside of code:</strong> I enjoy photography, traveling, and making interactive experiments. I also co-host a podcast and occasionally stream on YouTube.
-            <div class="extra-content">
-                <p>✨ Click again to collapse. I'm currently learning more about creative coding and generative design.</p>
-            </div>
-        </div>
-
-        <!-- ─── contact (real email link) ─── -->
-        <div class="contact">
-            <p>✉ say hello: <a href="mailto:you@example.com" data-contact="email" id="emailLink">you@example.com</a></p>
-        </div>
-
-        <div class="footer-note">
-            <span>✦ inspired by <a href="https://antfu.me" target="_blank" rel="noopener">antfu.me</a> · built with minimal CSS</span>
-        </div>
+    <!-- logo / intro -->
+    <div class="logo">
+      <h1>theo</h1>
+      <p>builds things.</p>
     </div>
 
-    <script>
-        (function() {
-            // ─── THEME TOGGLE (reversed) ───
-            const toggleBtn = document.getElementById('themeToggle');
-            const body = document.body;
+    <!-- main navigation -->
+    <nav>
+      <a href="#">
+        <span>t3.chat</span>
+        <span class="arrow">→</span>
+      </a>
+      <a href="#">
+        <span>t3.tools</span>
+        <span class="arrow">→</span>
+      </a>
+      <a href="#">
+        <span>YouTube</span>
+        <span class="arrow">→</span>
+      </a>
+      <a href="#">
+        <span>create-t3-app</span>
+        <span class="arrow">→</span>
+      </a>
+      <a href="#">
+        <span>blog</span>
+        <span class="arrow">→</span>
+      </a>
+      <a href="#" class="active">
+        <span>sponsors</span>
+        <span class="arrow">→</span>
+      </a>
+    </nav>
 
-            const savedTheme = localStorage.getItem('theme');
-            if (savedTheme === 'dark') {
-                body.classList.add('dark');
-                toggleBtn.textContent = 'Light';
-            } else {
-                body.classList.remove('dark');
-                toggleBtn.textContent = 'Dark';
-            }
+    <div class="divider"></div>
 
-            toggleBtn.addEventListener('click', function() {
-                const isDark = body.classList.toggle('dark');
-                toggleBtn.textContent = isDark ? 'Light' : 'Dark';
-                localStorage.setItem('theme', isDark ? 'dark' : 'light');
-            });
+    <!-- social links -->
+    <div class="social">
+      <a href="#">GitHub</a>
+      <a href="#">X</a>
+      <a href="#">YouTube</a>
+      <a href="#">Twitch</a>
+      <a href="#">Discord</a>
+    </div>
 
-            // ─── NAV LINKS: track active state (but still redirect) ───
-            const navLinks = document.querySelectorAll('.nav-links a');
-            navLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    // Remove active from all
-                    navLinks.forEach(l => l.classList.remove('active'));
-                    // Add active to clicked (visual feedback before redirect)
-                    this.classList.add('active');
-                    // The link will redirect normally because of href
-                    console.log(`📂 Navigating to: ${this.dataset.section}`);
-                });
-            });
+  </div>
 
-            // ─── LINK ROW: track clicks (redirects normally) ───
-            const linkItems = document.querySelectorAll('.link-row a');
-            linkItems.forEach(link => {
-                link.addEventListener('click', function() {
-                    // Toggle clicked state for visual feedback
-                    this.classList.toggle('clicked');
-                    console.log(`🔗 Link: ${this.dataset.link} ${this.classList.contains('clicked') ? 'selected' : 'deselected'}`);
-                });
-            });
+  <script>
+    (function() {
+      // ----- navigation active-state management -----
+      const navLinks = document.querySelectorAll('nav a');
+      let activeLink = document.querySelector('nav a.active');
 
-            // ─── PASSION ITEMS: visual only ───
-            const passionItems = document.querySelectorAll('.passion-item');
-            passionItems.forEach(item => {
-                item.addEventListener('click', function() {
-                    this.classList.toggle('selected');
-                    console.log(`❤️ Passion: ${this.dataset.passion} ${this.classList.contains('selected') ? 'selected' : 'deselected'}`);
-                });
-            });
+      // if there's no active link, fallback to first one
+      if (!activeLink && navLinks.length) {
+        activeLink = navLinks[0];
+        activeLink.classList.add('active');
+      }
 
-            // ─── FUN NOTE: expand/collapse ───
-            const funNote = document.getElementById('funNote');
-            funNote.addEventListener('click', function() {
-                this.classList.toggle('expanded');
-                console.log(`📝 Fun note ${this.classList.contains('expanded') ? 'expanded' : 'collapsed'}`);
-            });
+      navLinks.forEach(link => {
+        // mouseenter → temporary switch active to hovered item
+        link.addEventListener('mouseenter', function() {
+          if (activeLink) {
+            activeLink.classList.remove('active');
+          }
+          this.classList.add('active');
+        });
 
-            // ─── CONTACT EMAIL: visual feedback ───
-            const emailLink = document.getElementById('emailLink');
-            emailLink.addEventListener('click', function(e) {
-                // Don't prevent default — let the mailto: work
-                this.classList.toggle('clicked');
-                console.log(`✉️ Email ${this.classList.contains('clicked') ? 'clicked' : 'unclicked'}`);
-                // Show temporary feedback (without breaking mailto)
-                const originalText = this.textContent;
-                if (this.classList.contains('clicked')) {
-                    this.textContent = '📧 opening mail...';
-                    setTimeout(() => {
-                        this.textContent = originalText;
-                    }, 800);
-                }
-            });
+        // mouseleave → revert to the stored active link
+        link.addEventListener('mouseleave', function() {
+          this.classList.remove('active');
+          if (activeLink) {
+            activeLink.classList.add('active');
+          }
+        });
 
-        })();
-    </script>
+        // click → permanently set this link as the active one
+        link.addEventListener('click', function(e) {
+          e.preventDefault(); // keep demo clean
+
+          // remove active from previous
+          if (activeLink) {
+            activeLink.classList.remove('active');
+          }
+
+          // set new active
+          this.classList.add('active');
+          activeLink = this;
+        });
+      });
+
+      // ----- social links subtle lift (via JS) -----
+      const socialLinks = document.querySelectorAll('.social a');
+      socialLinks.forEach(el => {
+        el.addEventListener('mouseenter', function() {
+          this.style.transform = 'translateY(-2px)';
+        });
+        el.addEventListener('mouseleave', function() {
+          this.style.transform = 'translateY(0)';
+        });
+      });
+    })();
+  </script>
 </body>
 </html>
