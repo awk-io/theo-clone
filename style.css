@@ -1,0 +1,192 @@
+/* ----- global reset & variables ----- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #0a0a0a;
+  --card: #111;
+  --text: #f5f5f5;
+  --muted: #707070;
+  --line: #1a1a1a;
+  --accent: #36d6ff;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+/* subtle orbs */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(circle at 50% 15%, rgba(255, 255, 255, .03), transparent 35%),
+    radial-gradient(circle at bottom, rgba(54, 214, 255, .02), transparent 40%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.container {
+  width: min(430px, 90vw);
+  position: relative;
+  z-index: 1;
+}
+
+/* ----- logo / name ----- */
+.logo {
+  margin-bottom: 50px;
+}
+
+.logo h1 {
+  font-size: 23px;
+  font-weight: 600;
+  letter-spacing: -0.04em;
+}
+
+.logo .tagline {
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.logo .description {
+  margin-top: 16px;
+  color: #888;
+  font-size: 13px;
+  line-height: 1.6;
+  max-width: 380px;
+  font-weight: 300;
+}
+
+/* ----- navigation ----- */
+nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+nav a {
+  color: #9d9d9d;
+  text-decoration: none;
+  font-size: 20px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 0;
+  position: relative;
+  transition: color 0.35s, transform 0.35s cubic-bezier(.22, 1, .36, 1);
+}
+
+/* thinner, lighter underline – only visible on hover */
+nav a::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--accent);
+  opacity: 0.5;
+  transition: width 0.4s cubic-bezier(.22, 1, .36, 1);
+}
+
+nav a:hover::after {
+  width: 100%;
+}
+
+nav a.active::after {
+  width: 100%;
+  opacity: 0.5;
+}
+
+nav a:hover {
+  color: white;
+  transform: translateX(6px);
+}
+
+nav a.active {
+  color: white;
+}
+
+.arrow {
+  color: #555;
+  transition: transform 0.3s, color 0.3s;
+}
+
+nav a:hover .arrow {
+  transform: translateX(6px);
+  color: white;
+}
+
+/* ----- divider ----- */
+.divider {
+  margin: 55px 0 28px;
+  height: 1px;
+  background: var(--line);
+}
+
+/* ----- social row ----- */
+.social {
+  display: flex;
+  gap: 28px;
+  flex-wrap: wrap;
+}
+
+.social a {
+  text-decoration: none;
+  color: #6c6c6c;
+  font-size: 14px;
+  transition: color 0.3s, transform 0.25s ease;
+  position: relative;
+}
+
+.social a:hover {
+  color: white;
+}
+
+.social a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 0;
+  height: 1px;
+  background: white;
+  opacity: 0.5;
+  transition: width 0.3s ease;
+}
+
+.social a:hover::after {
+  width: 100%;
+}
+
+/* ----- responsive tweaks ----- */
+@media (max-width: 600px) {
+  .logo {
+    margin-bottom: 40px;
+  }
+
+  .logo .description {
+    font-size: 12px;
+  }
+
+  nav a {
+    font-size: 18px;
+  }
+
+  .social {
+    gap: 18px;
+  }
+}
