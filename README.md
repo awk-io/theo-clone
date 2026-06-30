@@ -1,22 +1,86 @@
-# ✦ portfolio
+<div align="center">
 
-> a minimal, personal portfolio — built with curiosity and a touch of play.
+# Theo Portfolio (Inspired)
 
-This is my little corner of the web. A place to share who I am, what I build, and what I enjoy. No frameworks, no bloat — just HTML, CSS, and a pinch of JavaScript.
+A responsive front-end recreation inspired by Theo's minimalist portfolio, built with vanilla HTML, CSS, and JavaScript.
 
-## ✨ features
+<p>
+  <a href="#">Live Demo</a> •
+  <a href="#">Report Bug</a> •
+  <a href="#">Request Feature</a>
+</p>
 
-- Minimal & lightweight
-- Dark / light mode (persisted)
-- Fully interactive (nav, social links, passion tags, fun note)
-- Responsive
-- Easy to customize — all in one file
+</div>
 
-## 🚀 quick start
+---
+
+## About
+
+This project recreates the clean, modern aesthetic of Theo's portfolio while using an original implementation. It focuses on responsive layouts, smooth interactions, and lightweight performance without any frameworks.
+
+## Features
+
+- Responsive design
+- Modern minimalist UI
+- Smooth hover animations
+- Interactive navigation
+- Mobile-friendly layout
+- Vanilla HTML, CSS & JavaScript
+- Lightweight and fast
+
+## Built With
+
+- HTML5
+- CSS3
+- JavaScript (ES6)
+
+## Project Structure
+
+```
+.
+├── index.html
+├── style.css
+└── script.js
+```
+
+## Getting Started
+
+Clone the repository:
 
 ```bash
-# Clone or download the HTML file
-git clone https://github.com/your-username/your-portfolio.git
+git clone https://github.com/yourusername/theo-portfolio-inspired.git
+```
 
-# Open in your browser
-open index.html
+Open `index.html` in your browser.
+
+## Customization
+
+Update the links inside `script.js`:
+
+```js
+const navLinks = {
+  "Blog": "...",
+  "YouTube": "...",
+  "GitHub": "..."
+};
+```
+
+Modify colors in `:root`:
+
+```css
+:root{
+  --bg:#070707;
+  --text:#ffffff;
+  --accent:#36d6ff;
+}
+```
+
+## Disclaimer
+
+This project is an independent front-end recreation inspired by Theo's portfolio. It is intended for educational and practice purposes only and is not affiliated with or endorsed by Theo.
+
+---
+
+<div align="center">
+
+</div>
